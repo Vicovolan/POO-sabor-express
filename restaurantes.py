@@ -1,24 +1,31 @@
 class Restaurante:
+
     restaurantes = []
 
     def __init__(self, nome, categoria):
-        self.nome = nome
-        self.categoria = categoria
+        self._nome = nome.title()
+        self._categoria = categoria.upper()
         self._ativo = True    #colocar o _ faz com que seja um atributo provado e as pessoas não conseguem acessar ele direto
         Restaurante.restaurantes.append(self)    
+
     def __str__(self):
-        return f'{self.nome} | {self.categoria}'
+        return f'{self._nome} | {self.categoria}'
     
-    def listar_restaurantes(self):
-        print(f'{'Nome do restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | Ativo')
-        for r in Restaurante.restaurantes:
-            print(f'{r.nome.ljust(25)} | {r.categoria.ljust(25)} | {r.ativo}')
+    @classmethod
+    def listar_restaurantes(cls):
+        print(f'{'Nome do restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Ativo'}')
+        for restaurante in cls.restaurantes:
+            print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {restaurante.ativo}')
 
     @property
     def ativo(self):
-        return '☑' if self._ativo else   '☐'
+        return '☑' if self._ativo else  '☐'
+    
+    def alternar_estado(self):
+        self._ativo = not self._ativo
 
 restaurante_praca = Restaurante('Cadu', 'sushi')
+restaurante_praca.alternar_estado()
 restaurante_pizza = Restaurante('Vitoria', 'Poke')
 
-Restaurante.listar_restaurantes(Restaurante)
+Restaurante.listar_restaurantes()
