@@ -1,3 +1,5 @@
+from .avaliacao import Avaliacao
+
 class Restaurante:
 
     restaurantes = []
@@ -5,7 +7,8 @@ class Restaurante:
     def __init__(self, nome, categoria):
         self._nome = nome.title()
         self._categoria = categoria.upper()
-        self._ativo = True    #colocar o _ faz com que seja um atributo provado e as pessoas não conseguem acessar ele direto
+        self._ativo = True 
+        self._avaliacao = []   #colocar o _ faz com que seja um atributo provado e as pessoas não conseguem acessar ele direto
         Restaurante.restaurantes.append(self)    
 
     def __str__(self):
@@ -24,8 +27,6 @@ class Restaurante:
     def alternar_estado(self):
         self._ativo = not self._ativo
 
-restaurante_praca = Restaurante('Cadu', 'sushi')
-restaurante_praca.alternar_estado()
-restaurante_pizza = Restaurante('Vitoria', 'Poke')
-
-Restaurante.listar_restaurantes()
+    def receber_avaliacao(self, cliente, nota):
+        avaliacao = Avaliacao(cliente, nota)
+        self._avaliacao.append(avaliacao)
